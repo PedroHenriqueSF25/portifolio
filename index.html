@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portfólio - Pedro Henrique</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #ffffff;
+    }
+
+    .hero {
+      background: linear-gradient(rgba(15, 32, 39, 0.9), rgba(44, 83, 100, 0.8)), 
+                  url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');
+      background-size: cover;
+      background-position: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      background: linear-gradient(to bottom, transparent, #0f2027);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    h1, h2, h3 {
+      color: #00c3ff;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: #00c3ff;
+    }
+
+    .subtitle {
+      font-size: 1.5rem;
+      max-width: 700px;
+      margin: 0 auto 3rem;
+      line-height: 1.6;
+    }
+
+    .links {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 4rem;
+    }
+
+    .link-button {
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      border: 2px solid #00c3ff;
+      border-radius: 50px;
+      cursor: pointer;
+      background: transparent;
+      color: #fff;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .link-button:hover {
+      background: #00c3ff;
+      color: #000;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0,195,255,0.3);
+    }
+
+    /* Seção Sobre Mim */
+    .about-section {
+      padding: 5rem 0;
+      background: #0f2027;
+    }
+
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .profile-img {
+      width: 100%;
+      max-width: 350px;
+      border-radius: 15px;
+      border: 5px solid #00c3ff;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .skills-list {
+      list-style-type: none;
+    }
+
+    .skills-list li {
+      padding: 1.2rem;
+      margin-bottom: 1rem;
+      background: rgba(0, 195, 255, 0.1);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: transform 0.3s;
+    }
+
+    .skills-list li:hover {
+      transform: translateX(10px);
+      background: rgba(0, 195, 255, 0.2);
+    }
+
+    .skill-icon {
+      font-size: 1.5rem;
+      color: #00c3ff;
+    }
+
+    /* Seção GitHub */
+    .github-section {
+      padding: 5rem 0;
+      background: linear-gradient(to bottom right, #0f2027, #203a43);
+    }
+
+    .github-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .github-stats {
+      background: rgba(36, 41, 46, 0.7);
+      border-radius: 15px;
+      padding: 2rem;
+      border: 1px solid #30363d;
+      backdrop-filter: blur(10px);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 1.5rem;
+      background: rgba(0, 195, 255, 0.1);
+      border-radius: 10px;
+      transition: transform 0.3s;
+    }
+
+    .stat-item:hover {
+      transform: scale(1.05);
+      background: rgba(0, 195, 255, 0.2);
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #00c3ff;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: #8b949e;
+    }
+
+    /* Projetos */
+    .projects-container {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .repo-card {
+      background: rgba(36, 41, 46, 0.7);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #30363d;
+      transition: all 0.3s;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+    }
+
+    .repo-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+      border-color: #00c3ff;
+    }
+
+    .repo-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .repo-content {
+      padding: 1.5rem;
+    }
+
+    .repo-title {
+      color: #00c3ff;
+      font-weight: bold;
+      margin-bottom: 0.8rem;
+      font-size: 1.2rem;
+    }
+
+    .repo-desc {
+      font-size: 0.95rem;
+      color: #c9d1d9;
+      margin-bottom: 1.2rem;
+      line-height: 1.6;
+    }
+
+    .repo-tech {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .tech-tag {
+      background: rgba(0, 195, 255, 0.1);
+      color: #00c3ff;
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+    }
+
+    /* Footer */
+    footer {
+      background: #0a161b;
+      padding: 2rem 0;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-link {
+      color: #00c3ff;
+      font-size: 1.5rem;
+      transition: transform 0.3s;
+    }
+
+    .footer-link:hover {
+      transform: translateY(-5px);
+      color: #fff;
+    }
+
+    .copyright {
+      color: #8b949e;
+      font-size: 0.9rem;
+    }
+
+    /* Animações */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      animation: fadeIn 1s forwards;
+    }
+
+    .delay-1 { animation-delay: 0.2s; }
+    .delay-2 { animation-delay: 0.4s; }
+    .delay-3 { animation-delay: 0.6s; }
+    .delay-4 { animation-delay: 0.8s; }
+
+    /* Responsivo */
+    @media (max-width: 992px) {
+      .about-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      
+      .profile-img {
+        margin: 0 auto;
+      }
+      
+      .skills-list li {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .github-container {
+        grid-template-columns: 1fr;
+      }
+      
+      h1 {
+        font-size: 2.5rem;
+      }
+      
+      .subtitle {
+        font-size: 1.2rem;
+      }
+    }
+
+    /* Loader */
+    .loader {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100px;
+    }
+
+    .loader-circle {
+      width: 20px;
+      height: 20px;
+      margin: 0 5px;
+      background-color: #00c3ff;
+      border-radius: 50%;
+      animation: bounce 1.5s infinite ease-in-out;
+    }
+
+    .loader-circle:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .loader-circle:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .loader-circle:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1 class="fade-in">Pedro Henrique</h1>
+      <p class="subtitle fade-in delay-1">Desenvolvedor Full Stack • Criativo • Apaixonado por Tecnologia</p>
+      <div class="links fade-in delay-2">
+        <button class="link-button" onclick="goToLink('linkedin')">
+          <i class="fab fa-linkedin-in"></i> LinkedIn
+        </button>
+        <button class="link-button" onclick="goToLink('github')">
+          <i class="fab fa-github"></i> GitHub
+        </button>
+        <button class="link-button" onclick="goToLink('canva')">
+          <i class="fas fa-file-alt"></i> Ver Currículo
+        </button>
+        <button class="link-button" onclick="goToLink('email')">
+          <i class="fas fa-envelope"></i> Contato
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sobre Mim -->
+  <section class="about-section">
+    <div class="container">
+      <h2 class="fade-in">Sobre Mim</h2>
+      <div class="about-content">
+        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=350&q=80" 
+             alt="Pedro Henrique" class="profile-img fade-in">
+        
+        <ul class="skills-list">
+          <li class="fade-in delay-1">
+            <i class="fas fa-graduation-cap skill-icon"></i>
+            <span><span class="highlight">Estudante de Análise e Desenvolvimento de Sistemas</span> com conhecimento em desenvolvimento front-end e back-end.</span>
+          </li>
+          <li class="fade-in delay-2">
+            <i class="fas fa-code skill-icon"></i>
+            <span>Experiência com <span class="highlight">Python, CSS, JavaScript, React, Node.js</span> e bancos de dados relacionais.</span>
+          </li>
+          <li class="fade-in delay-3">
+            <i class="fas fa-users skill-icon"></i>
+            <span>Facilidade para <span class="highlight">trabalhar em equipe</span>, resolver problemas e aprender novas tecnologias.</span>
+          </li>
+          <li class="fade-in delay-4">
+            <i class="fas fa-star skill-icon"></i>
+            <span>Comprometido com a qualidade do código e boas práticas de desenvolvimento.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- GitHub Section -->
+  <section class="github-section">
+    <div class="container">
+      <h2 class="fade-in">Meus Projetos</h2>
+      
+      <div class="github-container">
+        <div class="github-stats fade-in">
+          <h3>Estatísticas GitHub</h3>
+          <p>Minha atividade e contribuições na plataforma:</p>
+          
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-value" id="repos-count">0</div>
+              <div class="stat-label">Repositórios</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value" id="stars-count">0</div>
+              <div class="stat-label">Estrelas</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value" id="followers-count">0</div>
+              <div class="stat-label">Seguidores</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value" id="contributions-count">0</div>
+              <div class="stat-label">Contribuições</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="projects-container" id="projects-container">
+          <!-- Os projetos serão carregados dinamicamente aqui -->
+          <div class="loader">
+            <div class="loader-circle"></div>
+            <div class="loader-circle"></div>
+            <div class="loader-circle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="#" class="footer-link" onclick="goToLink('linkedin')"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="footer-link" onclick="goToLink('github')"><i class="fab fa-github"></i></a>
+        <a href="#" class="footer-link" onclick="goToLink('email')"><i class="fas fa-envelope"></i></a>
+      </div>
+      <p class="copyright">© 2025 Pedro Henrique. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    const githubUsername = 'PedroHenriqueSF25';
+    
+    // Função para buscar dados do GitHub
+    async function fetchGitHubData() {
+      try {
+        // Buscar dados do usuário
+        const userResponse = await fetch(`https://api.github.com/users/${githubUsername}`);
+        const userData = await userResponse.json();
+        
+        // Atualizar estatísticas
+        document.getElementById('repos-count').textContent = userData.public_repos;
+        document.getElementById('stars-count').textContent = 0; // Precisa de outra API para isso
+        document.getElementById('followers-count').textContent = userData.followers;
+        document.getElementById('contributions-count').textContent = 0; // Precisa de outra API para isso
+        
+        // Buscar repositórios
+        const reposResponse = await fetch(`https://api.github.com/users/${githubUsername}/repos?sort=updated&direction=desc`);
+        const reposData = await reposResponse.json();
+        
+        // Exibir repositórios
+        displayRepositories(reposData);
+      } catch (error) {
+        console.error('Erro ao buscar dados do GitHub:', error);
+        document.getElementById('projects-container').innerHTML = 
+          '<p class="repo-desc">Não foi possível carregar os projetos. Por favor, tente novamente mais tarde.</p>';
+      }
+    }
+    
+    // Função para exibir repositórios
+    function displayRepositories(repos) {
+      const projectsContainer = document.getElementById('projects-container');
+      
+      // Limpar loader
+      projectsContainer.innerHTML = '';
+      
+      // Filtrar repositórios (remover forks e repositórios vazios)
+      const filteredRepos = repos.filter(repo => !repo.fork && repo.description);
+      
+      // Ordenar por data de atualização (já vem ordenado da API)
+      
+      // Limitar a 4 repositórios
+      const displayedRepos = filteredRepos.slice(0, 4);
+      
+      if (displayedRepos.length === 0) {
+        projectsContainer.innerHTML = 
+          '<p class="repo-desc">Nenhum repositório público encontrado.</p>';
+        return;
+      }
+      
+      // Adicionar cada repositório ao container
+      displayedRepos.forEach((repo, index) => {
+        const repoCard = document.createElement('div');
+        repoCard.className = `repo-card fade-in delay-${index + 1}`;
+        repoCard.onclick = () => window.open(repo.html_url, '_blank');
+        
+        // Imagem padrão baseada na linguagem principal
+        let imageUrl = 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80';
+        
+        if (repo.language) {
+          switch(repo.language.toLowerCase()) {
+            case 'javascript':
+              imageUrl = 'https://images.unsplash.com/photo-1627398242454-45a1465c2479?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80';
+              break;
+            case 'python':
+              imageUrl = 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80';
+              break;
+            case 'html':
+            case 'css':
+              imageUrl = 'https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80';
+              break;
+          }
+        }
+        
+        // Criar tags de tecnologia
+        let techTags = '';
+        if (repo.language) {
+          techTags = `<span class="tech-tag">${repo.language}</span>`;
+        }
+        
+        repoCard.innerHTML = `
+          <img src="${imageUrl}" alt="${repo.name}" class="repo-image">
+          <div class="repo-content">
+            <div class="repo-title">${repo.name}</div>
+            <div class="repo-desc">${repo.description || 'Sem descrição disponível.'}</div>
+            <div class="repo-tech">
+              ${techTags}
+              <span class="tech-tag">GitHub</span>
+            </div>
+          </div>
+        `;
+        
+        projectsContainer.appendChild(repoCard);
+      });
+    }
+    
+    function goToLink(platform) {
+      let url;
+      switch(platform) {
+        case 'linkedin':
+          url = 'https://www.linkedin.com/in/pedro-henrique-silva-fernandes-922392218';
+          break;
+        case 'github':
+          url = `https://github.com/${githubUsername}`;
+          break;
+        case 'canva':
+          url = 'https://www.canva.com/design/DAGgrlutUDg/rnixfA0ftrR_5_vo4uWMwQ/view?utm_content=DAGgrlutUDg&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h7bab5b540e';
+          break;
+        case 'email':
+          url = 'mailto:pedrohsf2501@gmail.com';
+          break;
+        default:
+          return;
+      }
+
+      window.open(url, '_blank');
+    }
+    
+    // Observador de interseção para animações
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fade-in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => {
+      observer.observe(el);
+    });
+    
+    // Carregar dados do GitHub quando a página carregar
+    window.addEventListener('DOMContentLoaded', fetchGitHubData);
+  </script>
+</body>
+</html>
