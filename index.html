@@ -15,11 +15,79 @@
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: #ffffff;
+      background-color: #000000;
+    }
+
+    /* Barra de tecnologias melhorada */
+    .tech-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 70px;
+      background: rgba(20, 20, 20, 0.95);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      z-index: 1000;
+      border-bottom: 2px solid #ffffff;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .tech-scroll {
+      display: flex;
+      align-items: center;
+      animation: scroll 40s linear infinite;
+      will-change: transform;
+    }
+
+    .tech-item {
+      margin: 0 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: all 0.5s ease-out;
+      min-width: 80px;
+    }
+
+    .tech-item:hover {
+      transform: scale(1.3) translateY(-5px);
+      filter: drop-shadow(0 5px 5px rgba(255,255,255,0.5));
+    }
+
+    .tech-icon {
+      font-size: 2.5rem;
+      margin-bottom: 5px;
+      transition: all 0.3s;
+    }
+
+    .tech-name {
+      font-size: 0.8rem;
+      color: #cccccc;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.8;
+      transition: all 0.3s;
+    }
+
+    .tech-item:hover .tech-name {
+      opacity: 1;
+      color: #ffffff;
+    }
+
+    @keyframes scroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
     }
 
     .hero {
-      background: linear-gradient(rgba(15, 32, 39, 0.9), rgba(44, 83, 100, 0.8)), 
-                  url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');
+      background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(30, 30, 30, 0.8)), 
+                  url('https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');
       background-size: cover;
       background-position: center;
       min-height: 100vh;
@@ -30,6 +98,7 @@
       text-align: center;
       padding: 2rem;
       position: relative;
+      margin-top: 70px; /* Espaço para a barra de tecnologias */
     }
 
     .hero::after {
@@ -39,7 +108,7 @@
       left: 0;
       width: 100%;
       height: 100px;
-      background: linear-gradient(to bottom, transparent, #0f2027);
+      background: linear-gradient(to bottom, transparent, #000000);
     }
 
     .container {
@@ -49,7 +118,7 @@
     }
 
     h1, h2, h3 {
-      color: #00c3ff;
+      color: #ffffff;
     }
 
     h1 {
@@ -73,7 +142,7 @@
       transform: translateX(-50%);
       width: 80px;
       height: 3px;
-      background: #00c3ff;
+      background: #ffffff;
     }
 
     .subtitle {
@@ -81,6 +150,7 @@
       max-width: 700px;
       margin: 0 auto 3rem;
       line-height: 1.6;
+      color: #cccccc;
     }
 
     .links {
@@ -94,7 +164,7 @@
     .link-button {
       padding: 1rem 2rem;
       font-size: 1rem;
-      border: 2px solid #00c3ff;
+      border: 2px solid #ffffff;
       border-radius: 50px;
       cursor: pointer;
       background: transparent;
@@ -106,31 +176,22 @@
     }
 
     .link-button:hover {
-      background: #00c3ff;
+      background: #ffffff;
       color: #000;
       transform: translateY(-3px);
-      box-shadow: 0 10px 20px rgba(0,195,255,0.3);
+      box-shadow: 0 10px 20px rgba(255,255,255,0.3);
     }
 
-    /* Seção Sobre Mim */
+    /* Seção Sobre Mim - Atualizada sem imagem */
     .about-section {
       padding: 5rem 0;
-      background: #0f2027;
+      background: #111111;
     }
 
     .about-content {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 3rem;
-      align-items: center;
-    }
-
-    .profile-img {
-      width: 100%;
-      max-width: 350px;
-      border-radius: 15px;
-      border: 5px solid #00c3ff;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      display: block;
+      max-width: 800px;
+      margin: 0 auto;
     }
 
     .skills-list {
@@ -138,30 +199,34 @@
     }
 
     .skills-list li {
-      padding: 1.2rem;
-      margin-bottom: 1rem;
-      background: rgba(0, 195, 255, 0.1);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      background: rgba(255, 255, 255, 0.1);
       border-radius: 8px;
       display: flex;
       align-items: center;
-      gap: 1rem;
-      transition: transform 0.3s;
+      gap: 1.5rem;
+      transition: all 0.3s;
+      color: #eeeeee;
     }
 
     .skills-list li:hover {
       transform: translateX(10px);
-      background: rgba(0, 195, 255, 0.2);
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
 
     .skill-icon {
-      font-size: 1.5rem;
-      color: #00c3ff;
+      font-size: 1.8rem;
+      color: #ffffff;
+      min-width: 40px;
+      text-align: center;
     }
 
     /* Seção GitHub */
     .github-section {
       padding: 5rem 0;
-      background: linear-gradient(to bottom right, #0f2027, #203a43);
+      background: linear-gradient(to bottom right, #000000, #222222);
     }
 
     .github-container {
@@ -171,10 +236,10 @@
     }
 
     .github-stats {
-      background: rgba(36, 41, 46, 0.7);
+      background: rgba(30, 30, 30, 0.7);
       border-radius: 15px;
       padding: 2rem;
-      border: 1px solid #30363d;
+      border: 1px solid #444444;
       backdrop-filter: blur(10px);
     }
 
@@ -188,26 +253,26 @@
     .stat-item {
       text-align: center;
       padding: 1.5rem;
-      background: rgba(0, 195, 255, 0.1);
+      background: rgba(255, 255, 255, 0.1);
       border-radius: 10px;
       transition: transform 0.3s;
     }
 
     .stat-item:hover {
       transform: scale(1.05);
-      background: rgba(0, 195, 255, 0.2);
+      background: rgba(255, 255, 255, 0.2);
     }
 
     .stat-value {
       font-size: 2rem;
       font-weight: bold;
-      color: #00c3ff;
+      color: #ffffff;
       margin-bottom: 0.5rem;
     }
 
     .stat-label {
       font-size: 0.9rem;
-      color: #8b949e;
+      color: #aaaaaa;
     }
 
     /* Projetos */
@@ -217,10 +282,10 @@
     }
 
     .repo-card {
-      background: rgba(36, 41, 46, 0.7);
+      background: rgba(30, 30, 30, 0.7);
       border-radius: 10px;
       overflow: hidden;
-      border: 1px solid #30363d;
+      border: 1px solid #444444;
       transition: all 0.3s;
       cursor: pointer;
       backdrop-filter: blur(10px);
@@ -229,7 +294,7 @@
     .repo-card:hover {
       transform: translateY(-10px);
       box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-      border-color: #00c3ff;
+      border-color: #ffffff;
     }
 
     .repo-image {
@@ -243,7 +308,7 @@
     }
 
     .repo-title {
-      color: #00c3ff;
+      color: #ffffff;
       font-weight: bold;
       margin-bottom: 0.8rem;
       font-size: 1.2rem;
@@ -251,7 +316,7 @@
 
     .repo-desc {
       font-size: 0.95rem;
-      color: #c9d1d9;
+      color: #cccccc;
       margin-bottom: 1.2rem;
       line-height: 1.6;
     }
@@ -263,8 +328,8 @@
     }
 
     .tech-tag {
-      background: rgba(0, 195, 255, 0.1);
-      color: #00c3ff;
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
       padding: 0.3rem 0.8rem;
       border-radius: 50px;
       font-size: 0.8rem;
@@ -272,9 +337,10 @@
 
     /* Footer */
     footer {
-      background: #0a161b;
+      background: #000000;
       padding: 2rem 0;
       text-align: center;
+      border-top: 1px solid #333333;
     }
 
     .footer-links {
@@ -285,18 +351,18 @@
     }
 
     .footer-link {
-      color: #00c3ff;
+      color: #ffffff;
       font-size: 1.5rem;
       transition: transform 0.3s;
     }
 
     .footer-link:hover {
       transform: translateY(-5px);
-      color: #fff;
+      color: #cccccc;
     }
 
     .copyright {
-      color: #8b949e;
+      color: #888888;
       font-size: 0.9rem;
     }
 
@@ -317,31 +383,63 @@
 
     /* Responsivo */
     @media (max-width: 992px) {
-      .about-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-      
-      .profile-img {
-        margin: 0 auto;
-      }
-      
-      .skills-list li {
-        justify-content: center;
-      }
-    }
-
-    @media (max-width: 768px) {
       .github-container {
         grid-template-columns: 1fr;
       }
       
+      .about-content {
+        padding: 0 2rem;
+      }
+    }
+
+    @media (max-width: 768px) {
       h1 {
         font-size: 2.5rem;
       }
       
       .subtitle {
         font-size: 1.2rem;
+      }
+
+      .tech-bar {
+        height: 60px;
+      }
+
+      .tech-icon {
+        font-size: 2rem;
+      }
+
+      .tech-name {
+        display: none;
+      }
+
+      .tech-item {
+        margin: 0 25px;
+        min-width: 60px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .tech-bar {
+        height: 50px;
+      }
+
+      .tech-icon {
+        font-size: 1.5rem;
+      }
+
+      .tech-item {
+        margin: 0 15px;
+        min-width: 50px;
+      }
+
+      .skills-list li {
+        padding: 1rem;
+        gap: 1rem;
+      }
+
+      .skill-icon {
+        font-size: 1.5rem;
       }
     }
 
@@ -357,7 +455,7 @@
       width: 20px;
       height: 20px;
       margin: 0 5px;
-      background-color: #00c3ff;
+      background-color: #ffffff;
       border-radius: 50%;
       animation: bounce 1.5s infinite ease-in-out;
     }
@@ -385,6 +483,93 @@
   </style>
 </head>
 <body>
+  <!-- Barra de Tecnologias -->
+  <div class="tech-bar">
+    <div class="tech-scroll">
+      <div class="tech-item">
+        <i class="fab fa-html5 tech-icon" style="color: #e34f26;"></i>
+        <span class="tech-name">HTML5</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-css3-alt tech-icon" style="color: #2965f1;"></i>
+        <span class="tech-name">CSS3</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-js tech-icon" style="color: #f7df1e;"></i>
+        <span class="tech-name">JavaScript</span>
+      </div>
+      <div class="tech-item">
+        <i class="fas fa-database tech-icon" style="color: #00758f;"></i>
+        <span class="tech-name">SQL</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-php tech-icon" style="color: #777bb3;"></i>
+        <span class="tech-name">PHP</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-python tech-icon" style="color: #3776ab;"></i>
+        <span class="tech-name">Python</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-react tech-icon" style="color: #61dafb;"></i>
+        <span class="tech-name">React</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-node-js tech-icon" style="color: #68a063;"></i>
+        <span class="tech-name">Node.js</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-git-alt tech-icon" style="color: #f05032;"></i>
+        <span class="tech-name">Git</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-github tech-icon" style="color: #ffffff;"></i>
+        <span class="tech-name">GitHub</span>
+      </div>
+      <!-- Repetir para criar efeito de loop infinito -->
+      <div class="tech-item">
+        <i class="fab fa-html5 tech-icon" style="color: #e34f26;"></i>
+        <span class="tech-name">HTML5</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-css3-alt tech-icon" style="color: #2965f1;"></i>
+        <span class="tech-name">CSS3</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-js tech-icon" style="color: #f7df1e;"></i>
+        <span class="tech-name">JavaScript</span>
+      </div>
+      <div class="tech-item">
+        <i class="fas fa-database tech-icon" style="color: #00758f;"></i>
+        <span class="tech-name">SQL</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-php tech-icon" style="color: #777bb3;"></i>
+        <span class="tech-name">PHP</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-python tech-icon" style="color: #3776ab;"></i>
+        <span class="tech-name">Python</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-react tech-icon" style="color: #61dafb;"></i>
+        <span class="tech-name">React</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-node-js tech-icon" style="color: #68a063;"></i>
+        <span class="tech-name">Node.js</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-git-alt tech-icon" style="color: #f05032;"></i>
+        <span class="tech-name">Git</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-github tech-icon" style="color: #ffffff;"></i>
+        <span class="tech-name">GitHub</span>
+      </div>
+    </div>
+  </div>
+
   <!-- Hero Section -->
   <section class="hero">
     <div class="container">
@@ -400,21 +585,15 @@
         <button class="link-button" onclick="goToLink('canva')">
           <i class="fas fa-file-alt"></i> Ver Currículo
         </button>
-        <button class="link-button" onclick="goToLink('email')">
-          <i class="fas fa-envelope"></i> Contato
-        </button>
       </div>
     </div>
   </section>
 
-  <!-- Sobre Mim -->
+  <!-- Sobre Mim - Atualizado sem imagem -->
   <section class="about-section">
     <div class="container">
       <h2 class="fade-in">Sobre Mim</h2>
       <div class="about-content">
-        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=350&q=80" 
-             alt="Pedro Henrique" class="profile-img fade-in">
-        
         <ul class="skills-list">
           <li class="fade-in delay-1">
             <i class="fas fa-graduation-cap skill-icon"></i>
@@ -431,6 +610,10 @@
           <li class="fade-in delay-4">
             <i class="fas fa-star skill-icon"></i>
             <span>Comprometido com a qualidade do código e boas práticas de desenvolvimento.</span>
+          </li>
+          <li class="fade-in delay-4">
+            <i class="fas fa-lightbulb skill-icon"></i>
+            <span>Sempre buscando aprender novas tecnologias e melhorar minhas habilidades como desenvolvedor.</span>
           </li>
         </ul>
       </div>
@@ -485,7 +668,6 @@
       <div class="footer-links">
         <a href="#" class="footer-link" onclick="goToLink('linkedin')"><i class="fab fa-linkedin-in"></i></a>
         <a href="#" class="footer-link" onclick="goToLink('github')"><i class="fab fa-github"></i></a>
-        <a href="#" class="footer-link" onclick="goToLink('email')"><i class="fas fa-envelope"></i></a>
       </div>
       <p class="copyright">© 2025 Pedro Henrique. Todos os direitos reservados.</p>
     </div>
@@ -547,23 +729,8 @@
         repoCard.className = `repo-card fade-in delay-${index + 1}`;
         repoCard.onclick = () => window.open(repo.html_url, '_blank');
         
-        // Imagem padrão baseada na linguagem principal
-        let imageUrl = 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80';
-        
-        if (repo.language) {
-          switch(repo.language.toLowerCase()) {
-            case 'javascript':
-              imageUrl = 'https://images.unsplash.com/photo-1627398242454-45a1465c2479?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80';
-              break;
-            case 'python':
-              imageUrl = 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80';
-              break;
-            case 'html':
-            case 'css':
-              imageUrl = 'https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80';
-              break;
-          }
-        }
+        // Imagem do GitHub usando a API de preview
+        let imageUrl = `https://opengraph.githubassets.com/1/${githubUsername}/${repo.name}`;
         
         // Criar tags de tecnologia
         let techTags = '';
@@ -572,7 +739,7 @@
         }
         
         repoCard.innerHTML = `
-          <img src="${imageUrl}" alt="${repo.name}" class="repo-image">
+          <img src="${imageUrl}" alt="${repo.name}" class="repo-image" style="object-fit: cover;">
           <div class="repo-content">
             <div class="repo-title">${repo.name}</div>
             <div class="repo-desc">${repo.description || 'Sem descrição disponível.'}</div>
@@ -598,9 +765,6 @@
           break;
         case 'canva':
           url = 'https://www.canva.com/design/DAGgrlutUDg/rnixfA0ftrR_5_vo4uWMwQ/view?utm_content=DAGgrlutUDg&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h7bab5b540e';
-          break;
-        case 'email':
-          url = 'mailto:pedrohsf2501@gmail.com';
           break;
         default:
           return;
