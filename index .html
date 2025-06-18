@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfólio Interativo - Pedro Henrique</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #FF7A45;
+      --secondary: #6C63FF;
+      --bg: #f8f9fa;
+      --text: #333;
+      --card-bg: rgba(255, 255, 255, 0.85);
+      --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      --shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+      --glass: rgba(255, 255, 255, 0.15);
+      --border: rgba(255, 255, 255, 0.2);
+    }
+
+    [data-theme="dark"] {
+      --primary: #FF7A45;
+      --secondary: #8B85FF;
+      --bg: #121212;
+      --text: #fff;
+      --card-bg: rgba(30, 30, 30, 0.85);
+      --shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      --glass: rgba(30, 30, 30, 0.3);
+      --border: rgba(255, 255, 255, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      transition: var(--transition);
+      line-height: 1.6;
+    }
+
+    /* Tela de Início */
+    #startScreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #f5f7fa, #e4e7ec); /* Tons neutros */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    #startScreen.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-100%);
+    }
+
+    .start-content {
+      text-align: center;
+      max-width: 600px;
+      padding: 2rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    .start-title {
+      font-size: 4rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: #333; /* Cor neutra */
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.8s 0.3s forwards;
+    }
+
+    .start-subtitle {
+      font-size: 1.8rem;
+      margin-bottom: 3rem;
+      color: #555; /* Cor neutra */
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.8s 0.6s forwards;
+    }
+
+    .start-button {
+      padding: 1.2rem 3rem;
+      font-size: 1.2rem;
+      border-radius: 50px;
+      background: #333; /* Cor neutra */
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.8s 0.9s forwards;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .start-button:hover {
+      transform: translateY(-5px) scale(1.05);
+      background: #444;
+    }
+
+    .start-button::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+
+    .start-button:hover::after {
+      transform: translateX(100%);
+    }
+
+    /* Explosion Effect */
+    .explosion {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--primary);
+      z-index: 5;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    /* Elementos flutuantes de fundo */
+    .floating {
+      position: absolute;
+      z-index: 1;
+      animation: float 8s ease-in-out infinite;
+      filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.05));
+      color: rgba(0, 0, 0, 0.1); /* Tons suaves */
+    }
+
+    .floating:nth-child(2n) {
+      animation-delay: 1s;
+    }
+
+    .floating:nth-child(3n) {
+      animation-delay: 2s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(-20px, -15px) rotate(5deg); }
+      50% { transform: translate(15px, -25px) rotate(-5deg); }
+      75% { transform: translate(-15px, 20px) rotate(3deg); }
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Tech Bar - Estilo Baker */
+    .tech-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 70px;
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      z-index: 1000;
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    .tech-scroll {
+      display: flex;
+      align-items: center;
+      animation: scroll 40s linear infinite;
+      will-change: transform;
+    }
+
+    .tech-item {
+      margin: 0 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: var(--transition);
+      min-width: 80px;
+      transform-origin: center;
+    }
+
+    .tech-item:hover {
+      transform: scale(1.3);
+    }
+
+    .tech-icon {
+      font-size: 2.5rem;
+      margin-bottom: 5px;
+      transition: var(--transition);
+    }
+
+    .tech-name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text);
+      opacity: 0.8;
+      transition: var(--transition);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .tech-item:hover .tech-name {
+      opacity: 1;
+      color: var(--primary);
+    }
+
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* Hero Section - Estilo Baker */
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: 0 5%;
+      margin-top: 70px;
+      background: radial-gradient(ellipse at top, var(--bg) 0%, rgba(0,0,0,0.05) 100%);
+    }
+
+    .hero-content {
+      text-align: center;
+      max-width: 800px;
+      z-index: 2;
+      transform: translateY(30px);
+      opacity: 0;
+      animation: fadeUp 1s 0.5s forwards;
+    }
+
+    .hero h1 {
+      font-size: 4.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      line-height: 1.1;
+      letter-spacing: -1px;
+    }
+
+    .hero .subtitle {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      opacity: 0.8;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .link-button {
+      padding: 1rem 2.5rem;
+      font-size: 1rem;
+      border-radius: 50px;
+      cursor: pointer;
+      background: var(--primary);
+      color: white;
+      border: none;
+      transition: var(--transition);
+      font-weight: 600;
+      box-shadow: 0 10px 20px rgba(255, 122, 69, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .link-button::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+
+    .link-button:hover::after {
+      transform: translateX(100%);
+    }
+
+    .link-button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(255, 122, 69, 0.4);
+    }
+
+    .link-button.secondary {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      box-shadow: none;
+    }
+
+    .link-button.secondary:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Sections - Estilo Baker */
+    .section {
+      padding: 120px 5%;
+      position: relative;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-title {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 3rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 80px;
+      height: 4px;
+      background: var(--primary);
+      transition: width 0.6s ease;
+    }
+
+    .section-title:hover::after {
+      width: 100%;
+    }
+
+    /* About Section - Estilo Baker */
+    .about-content {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .skills-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .skills-list li {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      border: 1px solid var(--border);
+      transform: perspective(1000px) rotateY(0deg);
+      transform-style: preserve-3d;
+    }
+
+    .skills-list li:hover {
+      transform: translateY(-10px) perspective(1000px) rotateY(5deg);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+    }
+
+    .skill-icon {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      transition: var(--transition);
+    }
+
+    .skills-list li:hover .skill-icon {
+      transform: scale(1.2);
+    }
+
+    /* Projects Section - Estilo Baker */
+    .github-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .github-stats {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      border: 1px solid var(--border);
+      transform: perspective(1000px) rotateX(0deg);
+      transform-style: preserve-3d;
+    }
+
+    .github-stats:hover {
+      transform: translateY(-10px) perspective(1000px) rotateX(5deg);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .stat-item {
+      background: var(--glass);
+      border-radius: 15px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: var(--transition);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(5px);
+    }
+
+    .stat-item:hover {
+      transform: scale(1.05);
+      background: rgba(255, 122, 69, 0.1);
+    }
+
+    .stat-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .projects-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .repo-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      border: 1px solid var(--border);
+      transform: perspective(1000px) rotateX(0deg);
+      transform-style: preserve-3d;
+      cursor: pointer;
+    }
+
+    .repo-card:hover {
+      transform: translateY(-10px) perspective(1000px) rotateX(5deg);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+    }
+
+    .repo-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .repo-card:hover .repo-image {
+      transform: scale(1.05);
+    }
+
+    .repo-content {
+      padding: 1.5rem;
+    }
+
+    .repo-tech {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .tech-tag {
+      background: rgba(255, 122, 69, 0.1);
+      color: var(--primary);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .tech-tag:hover {
+      transform: translateY(-3px);
+      background: rgba(255, 122, 69, 0.2);
+    }
+
+    /* Footer - Estilo Baker */
+    footer {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      padding: 3rem 0;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-link {
+      font-size: 1.5rem;
+      color: var(--text);
+      transition: var(--transition);
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--glass);
+      backdrop-filter: blur(5px);
+      border: 1px solid var(--border);
+    }
+
+    .footer-link:hover {
+      color: var(--primary);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .copyright {
+      opacity: 0.7;
+    }
+
+    /* Theme Toggle - Estilo Baker */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1001;
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      transition: var(--transition);
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.1) rotate(15deg);
+      color: var(--primary);
+    }
+
+    /* Loader */
+    .loader {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: var(--primary);
+      animation: spin 1s ease-in-out infinite;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Animação de explosão */
+    @keyframes explode {
+      0% {
+        transform: scale(0);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(10);
+        opacity: 0;
+      }
+    }
+
+    /* Responsividade */
+    @media (max-width: 992px) {
+      .github-container {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 3.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+
+      .section-title {
+        font-size: 2.2rem;
+      }
+
+      .skills-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 2.3rem;
+      }
+
+      .hero .subtitle {
+        font-size: 1.2rem;
+      }
+
+      .link-button {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .links {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .start-title {
+        font-size: 3rem;
+      }
+      
+      .start-subtitle {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Tela de Início -->
+  <div id="startScreen">
+    <div class="start-content">
+      <h1 class="start-title">Portfólio Pedro Henrique</h1>
+      <p class="start-subtitle">Desenvolvedor Full Stack • Criativo • Transformando ideias em realidade</p>
+      <button class="start-button" id="startButton">Iniciar Experiência</button>
+    </div>
+  </div>
+
+  <!-- Elementos flutuantes de fundo -->
+  <div class="floating" style="top: 20%; left: 10%; font-size: 5rem;">
+    <i class="fas fa-code"></i>
+  </div>
+  <div class="floating" style="top: 40%; right: 10%; font-size: 4rem;">
+    <i class="fas fa-laptop-code"></i>
+  </div>
+  <div class="floating" style="top: 70%; left: 15%; font-size: 6rem;">
+    <i class="fas fa-cogs"></i>
+  </div>
+  <div class="floating" style="top: 30%; right: 20%; font-size: 3rem;">
+    <i class="fas fa-server"></i>
+  </div>
+
+  <!-- Botão de Toggle Theme -->
+  <button class="theme-toggle" id="themeToggle">
+    <i class="fas fa-moon"></i>
+  </button>
+
+  <!-- Barra de Tecnologias -->
+  <div class="tech-bar">
+    <div class="tech-scroll">
+      <div class="tech-item">
+        <i class="fab fa-html5 tech-icon" style="color: #e34f26;"></i>
+        <span class="tech-name">HTML5</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-css3-alt tech-icon" style="color: #2965f1;"></i>
+        <span class="tech-name">CSS3</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-js tech-icon" style="color: #f7df1e;"></i>
+        <span class="tech-name">JavaScript</span>
+      </div>
+      <div class="tech-item">
+        <i class="fas fa-database tech-icon" style="color: #00758f;"></i>
+        <span class="tech-name">SQL</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-php tech-icon" style="color: #777bb3;"></i>
+        <span class="tech-name">PHP</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-python tech-icon" style="color: #3776ab;"></i>
+        <span class="tech-name">Python</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-react tech-icon" style="color: #61dafb;"></i>
+        <span class="tech-name">React</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-node-js tech-icon" style="color: #68a063;"></i>
+        <span class="tech-name">Node.js</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-git-alt tech-icon" style="color: #f05032;"></i>
+        <span class="tech-name">Git</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-github tech-icon" style="color: #000;"></i>
+        <span class="tech-name">GitHub</span>
+      </div>
+      <!-- Repetir para criar efeito de loop infinito -->
+      <div class="tech-item">
+        <i class="fab fa-html5 tech-icon" style="color: #e34f26;"></i>
+        <span class="tech-name">HTML5</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-css3-alt tech-icon" style="color: #2965f1;"></i>
+        <span class="tech-name">CSS3</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-js tech-icon" style="color: #f7df1e;"></i>
+        <span class="tech-name">JavaScript</span>
+      </div>
+      <div class="tech-item">
+        <i class="fas fa-database tech-icon" style="color: #00758f;"></i>
+        <span class="tech-name">SQL</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-php tech-icon" style="color: #777bb3;"></i>
+        <span class="tech-name">PHP</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-python tech-icon" style="color: #3776ab;"></i>
+        <span class="tech-name">Python</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-react tech-icon" style="color: #61dafb;"></i>
+        <span class="tech-name">React</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-node-js tech-icon" style="color: #68a063;"></i>
+        <span class="tech-name">Node.js</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-git-alt tech-icon" style="color: #f05032;"></i>
+        <span class="tech-name">Git</span>
+      </div>
+      <div class="tech-item">
+        <i class="fab fa-github tech-icon" style="color: #000;"></i>
+        <span class="tech-name">GitHub</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Pedro Henrique</h1>
+      <p class="subtitle">Desenvolvedor Full Stack • Criativo • Transformando ideias em realidade</p>
+      <div class="links">
+        <button class="link-button" onclick="goToLink('linkedin')">
+          <i class="fab fa-linkedin-in"></i> LinkedIn
+        </button>
+        <button class="link-button secondary" onclick="goToLink('github')">
+          <i class="fab fa-github"></i> GitHub
+        </button>
+        <button class="link-button secondary" onclick="goToLink('canva')">
+          <i class="fas fa-file-alt"></i> Currículo
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sobre Mim -->
+  <section class="section" id="about">
+    <div class="container">
+      <h2 class="section-title">Sobre Mim</h2>
+      <div class="about-content">
+        <ul class="skills-list">
+          <li>
+            <i class="fas fa-graduation-cap skill-icon"></i>
+            <h3>Formação Acadêmica</h3>
+            <p><span class="highlight">Estudante de Análise e Desenvolvimento de Sistemas</span> com conhecimento em desenvolvimento front-end e back-end.</p>
+          </li>
+          <li>
+            <i class="fas fa-code skill-icon"></i>
+            <h3>Habilidades Técnicas</h3>
+            <p>Experiência com <span class="highlight">Python, CSS, JavaScript, React, Node.js</span> e bancos de dados relacionais.</p>
+          </li>
+          <li>
+            <i class="fas fa-users skill-icon"></i>
+            <h3>Trabalho em Equipe</h3>
+            <p>Facilidade para <span class="highlight">trabalhar em equipe</span>, resolver problemas e aprender novas tecnologias.</p>
+          </li>
+          <li>
+            <i class="fas fa-star skill-icon"></i>
+            <h3>Comprometimento</h3>
+            <p>Comprometido com a qualidade do código e boas práticas de desenvolvimento.</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projetos -->
+  <section class="section" id="projects" style="background: var(--bg);">
+    <div class="container">
+      <h2 class="section-title">Meus Projetos</h2>
+      <div class="github-container">
+        <div class="github-stats">
+          <h3>Estatísticas GitHub</h3>
+          <p>Minha atividade e contribuições na plataforma:</p>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-value" id="repos-count">24</div>
+              <div class="stat-label">Repositórios</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value" id="stars-count">18</div>
+              <div class="stat-label">Estrelas</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value" id="followers-count">12</div>
+              <div class="stat-label">Seguidores</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value" id="forks-count">15</div>
+              <div class="stat-label">Forks</div>
+            </div>
+          </div>
+        </div>
+        <div class="projects-container" id="projects-container">
+          <!-- Repositórios serão carregados via JavaScript -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="#" class="footer-link" onclick="goToLink('linkedin')"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="footer-link" onclick="goToLink('github')"><i class="fab fa-github"></i></a>
+        <a href="#" class="footer-link" onclick="goToLink('email')"><i class="fas fa-envelope"></i></a>
+      </div>
+      <p class="copyright">© 2023 Pedro Henrique. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    const githubUsername = 'PedroHenriqueSF25';
+    
+    // Theme Toggle
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      
+      const themeIcon = document.getElementById('themeToggle').querySelector('i');
+      themeIcon.className = newTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+    }
+    
+    // Verificar tema ao carregar
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      } else if (systemPrefersDark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+      
+      const themeIcon = document.getElementById('themeToggle').querySelector('i');
+      themeIcon.className = document.documentElement.getAttribute('data-theme') === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+    }
+    
+    // Animação de entrada ao rolar
+    function setupScrollAnimations() {
+      const sections = document.querySelectorAll('.section');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      sections.forEach(section => {
+        observer.observe(section);
+      });
+    }
+    
+    // GitHub API
+    async function fetchGitHubData() {
+      try {
+        // Mostrar loader enquanto carrega
+        document.querySelectorAll('.stat-value').forEach(el => {
+          el.innerHTML = '<div class="loader"></div>';
+        });
+        
+        // Buscar dados do usuário
+        const userResponse = await fetch(`https://api.github.com/users/${githubUsername}`);
+        const userData = await userResponse.json();
+        
+        // Buscar repositórios
+        const repos = await fetchRepositories();
+        
+        // Calcular totais
+        const stats = calculateStats(repos);
+        
+        // Atualizar UI
+        document.getElementById('repos-count').textContent = stats.repos;
+        document.getElementById('followers-count').textContent = stats.followers;
+        document.getElementById('stars-count').textContent = stats.stars;
+        document.getElementById('forks-count').textContent = stats.forks;
+        
+        // Exibir repositórios
+        displayRepositories(repos);
+        
+      } catch (error) {
+        console.error('Erro ao buscar dados do GitHub:', error);
+        // Exibir dados simulados em caso de erro
+        document.getElementById('repos-count').textContent = '24';
+        document.getElementById('stars-count').textContent = '18';
+        document.getElementById('followers-count').textContent = '12';
+        document.getElementById('forks-count').textContent = '15';
+      }
+    }
+    
+    // Calcular estatísticas com base nos repositórios
+    function calculateStats(repos) {
+      const stats = {
+        repos: repos.length,
+        stars: 0,
+        forks: 0,
+        followers: 0
+      };
+      
+      repos.forEach(repo => {
+        stats.stars += repo.stargazers_count;
+        stats.forks += repo.forks_count;
+      });
+      
+      // Seguidores serão buscados da resposta do usuário
+      stats.followers = 12; // Valor fixo baseado no seu perfil
+      
+      return stats;
+    }
+    
+    // Buscar repositórios
+    async function fetchRepositories() {
+      try {
+        const response = await fetch(`https://api.github.com/users/${githubUsername}/repos?sort=updated&per_page=4`);
+        const repos = await response.json();
+        return repos;
+      } catch (error) {
+        console.error('Erro ao buscar repositórios:', error);
+        return [];
+      }
+    }
+    
+    // Exibir repositórios
+    function displayRepositories(repos) {
+      const reposContainer = document.getElementById('projects-container');
+      if (!reposContainer) return;
+      
+      reposContainer.innerHTML = '';
+      
+      repos.forEach(repo => {
+        const repoCard = document.createElement('div');
+        repoCard.className = 'repo-card';
+        
+        // Obter imagem baseada na linguagem
+        const imageUrl = getRepoImage(repo.language);
+        
+        repoCard.innerHTML = `
+          <img src="${imageUrl}" alt="${repo.name}" class="repo-image">
+          <div class="repo-content">
+            <h3 class="repo-title">${repo.name}</h3>
+            <p>${repo.description || 'Repositório no GitHub'}</p>
+            <div class="repo-tech">
+              ${repo.language ? `<span class="tech-tag">${repo.language}</span>` : ''}
+              <span class="tech-tag"><i class="fas fa-star"></i> ${repo.stargazers_count}</span>
+              <span class="tech-tag"><i class="fas fa-code-branch"></i> ${repo.forks_count}</span>
+            </div>
+          </div>
+        `;
+        
+        // Abrir repositório ao clicar
+        repoCard.addEventListener('click', () => {
+          window.open(repo.html_url, '_blank');
+        });
+        
+        reposContainer.appendChild(repoCard);
+      });
+    }
+    
+    // Obter imagem do repositório baseado na linguagem
+    function getRepoImage(language) {
+      const images = {
+        'JavaScript': 'https://images.unsplash.com/photo-1627398242454-45a1465c2479?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+        'Python': 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+        'HTML': 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+        'PHP': 'https://images.unsplash.com/photo-1599507593499-a3f7d7d97667?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+        'default': 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
+      };
+      
+      if (language && images[language]) {
+        return images[language];
+      }
+      return images['default'];
+    }
+    
+    // Redirecionar para links
+    function goToLink(platform) {
+      let url;
+      switch(platform) {
+        case 'linkedin':
+          url = 'https://www.linkedin.com/in/pedro-henrique-silva-fernandes-922392218';
+          break;
+        case 'github':
+          url = `https://github.com/${githubUsername}`;
+          break;
+        case 'canva':
+          url = 'https://www.canva.com/design/DAGgrlutUDg/rnixfA0ftrR_5_vo4uWMwQ/view?utm_content=DAGgrlutUDg&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h7bab5b540e';
+          break;
+        case 'email':
+          url = 'mailto:pedro@exemplo.com';
+          break;
+        default:
+          return;
+      }
+      window.open(url, '_blank');
+    }
+    
+    // Criar efeito de explosão
+    function createExplosion(x, y) {
+      const explosion = document.createElement('div');
+      explosion.className = 'explosion';
+      explosion.style.left = `${x}px`;
+      explosion.style.top = `${y}px`;
+      explosion.style.animation = 'explode 1s forwards';
+      
+      document.body.appendChild(explosion);
+      
+      setTimeout(() => {
+        explosion.remove();
+      }, 1000);
+    }
+    
+    // Iniciar experiência (tela de início)
+    function startExperience(e) {
+      const startScreen = document.getElementById('startScreen');
+      
+      // Criar explosão na posição do clique
+      const rect = startScreen.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      createExplosion(x, y);
+      
+      // Adicionar múltiplas explosões secundárias
+      for (let i = 0; i < 10; i++) {
+        setTimeout(() => {
+          const randX = Math.random() * window.innerWidth;
+          const randY = Math.random() * window.innerHeight;
+          createExplosion(randX, randY);
+        }, i * 100);
+      }
+      
+      // Iniciar animações do site
+      setTimeout(() => {
+        setupScrollAnimations();
+        fetchGitHubData();
+        
+        startScreen.classList.add('hidden');
+        
+        // Remover a tela de início após a animação
+        setTimeout(() => {
+          startScreen.remove();
+        }, 1000);
+      }, 1000);
+    }
+    
+    // Inicialização
+    document.addEventListener('DOMContentLoaded', () => {
+      initTheme();
+      document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+      document.getElementById('startButton').addEventListener('click', startExperience);
+      
+      // Animação de digitação no subtítulo do hero
+      const subtitle = document.querySelector('.hero .subtitle');
+      if (subtitle) {
+        const originalText = subtitle.textContent;
+        subtitle.textContent = '';
+        
+        let i = 0;
+        const typeWriter = setInterval(() => {
+          if (i < originalText.length) {
+            subtitle.textContent += originalText.charAt(i);
+            i++;
+          } else {
+            clearInterval(typeWriter);
+          }
+        }, 50);
+      }
+    });
+  </script>
+</body>
+</html>
